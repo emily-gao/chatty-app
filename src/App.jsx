@@ -7,35 +7,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      user: 'Emily',
-      messages: [{
-        id: 1,
-        usertype: 'user',
-        username: 'Tom',
-        content: "I won't be impressed with technology until I can download food."
-      }, {
-        id: 2,
-        usertype: 'system',
-        content: 'Tom changed username to JazzyJack'
-      }, {
-        id: 3,
-        usertype: 'user',
-        username: 'Jessica',
-        content: 'IMO, telecommuting is the ultimate goal.'
-      }
-    ]};
+      user: 'Anonymous',
+      messages: []
+    };
     this.addNewMessage = this.addNewMessage.bind(this);
   }
 
   addNewMessage(content) {
-    const currentState = this.state.messages;
-    const newState = currentState.concat({
-      id: rando(),
-      usertype: 'user',
-      username: this.state.user,
-      content: content
-    });
-    this.setState({ messages: newState });
+    const message = { usertype: 'user', username: this.state.user, content: content };
+    this.socket.send(JSON.stringify(message));
+  }
+
+  componentDidMount() {
+    this.socket = new WebSocket('ws://localhost:3001');
+    console.log('Connected to server');
+
+    this.socket.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      console.log(message);
+      const messages = this.state.messages.concat(message);
+      console.log(messages);
+      this.setState({ messages: messages });
+    }
   }
 
   render() {
@@ -45,7 +38,7 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages={this.state.messages} />
-        <ChatBar addNewMessage={this.addNewMessage} />
+        <ChatBar addNewMessage={this.addNewMessage} user={this.state.user} />
       </div>
     );
   }
