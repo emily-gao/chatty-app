@@ -11,6 +11,9 @@ const server = express()
 
 const wss = new SocketServer({ server });
 
+const colors = ['text-success', 'text-info', 'text-warning', 'text-danger'];
+const messages = [];
+
 // update # of clients online
 function logNumUsersOnline() {
   const oneUserOnline = '1 user online';
@@ -29,9 +32,22 @@ function logNumUsersOnline() {
   });
 }
 
+function assignUserColor(ws) {
+  const index = Math.floor(Math.random() * 4);
+  const userColorMsg = {
+    type: 'userColor',
+    content: colors[index]
+  }
+  ws.send(JSON.stringify(userColorMsg));
+}
+
 wss.on('connection', (ws) => {
   console.log('Client connected');
   logNumUsersOnline();
+  assignUserColor(ws);
+  messages.splice(-10).forEach(message => {
+    ws.send(JSON.stringify(message));
+  })
 
   // broadcast messages to all users
   ws.on('message', (message) => {
@@ -47,6 +63,8 @@ wss.on('connection', (ws) => {
         break;
       default: break;
     }
+    console.log(outgoingMsg);
+    messages.push(outgoingMsg);
 
     wss.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {

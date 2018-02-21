@@ -29,6 +29,7 @@ class App extends Component {
     const message = { 
       type: 'postMessage',
       username: user, 
+      userColor: this.state.userColor,
       content: content 
     };
     this.socket.send(JSON.stringify(message));
@@ -40,13 +41,21 @@ class App extends Component {
 
     this.socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      
-      if (message.type === 'numUsersOnline') {
-        this.setState({ numUsersOnline: message.content });
-      } else if (message.type === 'incomingNotification' || 'incomingMessage') {
-        const messages = this.state.messages.concat(message);
-        // console.log(messages);
-        this.setState({ messages: messages });
+
+      switch(message.type) {
+        case 'userColor': 
+          this.setState({ userColor: message.content})
+          break;
+        case 'numUsersOnline':
+          this.setState({ numUsersOnline: message.content });
+          break;
+        case 'incomingNotification':
+        case 'incomingMessage':
+          console.log(message);
+          const messages = this.state.messages.concat(message);
+          this.setState({ messages: messages });  
+          break;
+        default: break;
       }
     }
   }
