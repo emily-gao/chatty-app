@@ -20,6 +20,7 @@ class App extends Component {
       this.setState({ user: user });
       const notification = {
         type: 'postNotification',
+        newName: user,
         content: `${oldUser} changed their name to ${user}.`
       }
       this.socket.send(JSON.stringify(notification));
