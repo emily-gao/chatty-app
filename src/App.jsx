@@ -68,7 +68,7 @@ class App extends Component {
           <a href="/" className="navbar-brand text-white"><i className="far fa-comment"></i> Chatty</a>
           <span className="navbar-text text-white">{this.state.numUsersOnline}</span>
         </nav>
-          <i className="far fa-comment"></i>
+          
         <MessageList messages={this.state.messages} />
         <ChatBar addNewMessage={this.addNewMessage} user={this.state.user} />
       </div>
