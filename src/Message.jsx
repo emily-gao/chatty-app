@@ -24,7 +24,7 @@ class Message extends Component {
     } else if (this.props.message.type === 'incomingNotification') {
       console.log('incomingNotification reached Message.jsx');
       return (
-        <div className="d-flex flex-row">
+        <div className="font-italic d-flex flex-row">
           <div className="p-6">{this.props.message.content}</div>
         </div>
       );
