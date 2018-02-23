@@ -10,9 +10,7 @@ class MessageList extends Component {
 
     return (
       <div>
-        <main className="messages">
-          {messages}
-        </main>
+        {messages}
       </div>
     );
   }
