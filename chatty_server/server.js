@@ -175,8 +175,8 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     console.log('Client disconnected');
     logNumUsersOnline();
-    console.log(user);
-    userListMessage.content = userList.filter(userListItem => userListItem.id !== user.id);
+    userList = userList.filter(userListItem => userListItem.id !== user.id);
+    userListMessage.content = userList;
     broadcastWithUuid(userListMessage);
 
     const userLeave = {
