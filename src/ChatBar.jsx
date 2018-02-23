@@ -7,12 +7,19 @@ class ChatBar extends Component {
       user: this.props.user,
       content: ''
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleContentChange = this.handleContentChange.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
-    this.changeUsername = this.changeUsername.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
   }
   
-  handleChange(event) {
+  // TODO: if enters a username, update username
+  handleUsernameChange(event) {
+    this.props.notifyTyping();
+    this.setState({ user: event.target.value });
+  }
+
+  handleContentChange(event) {
+    this.props.notifyTyping();
     this.setState({ content: event.target.value });
   }
 
@@ -23,20 +30,15 @@ class ChatBar extends Component {
     }
   }
 
-  // TODO: if enters a username, update username
-  changeUsername(event) {
-    this.setState({ user: event.target.value });
-  }
-
   render() {
     return (
       <footer className="navbar bg-primary fixed-bottom form-row">
-        <div className="col">
+        <div className="col-3">
           <input 
             name="chatbarUsername" 
             className="form-control" 
             placeholder={this.state.user}
-            onChange={this.changeUsername} />
+            onChange={this.handleUsernameChange} />
         </div>
         <div className="col-9">
           <input 
@@ -44,7 +46,7 @@ class ChatBar extends Component {
             className="form-control" 
             placeholder="Type a message and hit ENTER"
             value={this.state.content}
-            onChange={this.handleChange}
+            onChange={this.handleContentChange}
             onKeyPress={this.handleEnter} />
         </div>
       </footer>
