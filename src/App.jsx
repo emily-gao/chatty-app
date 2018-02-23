@@ -47,9 +47,14 @@ class App extends Component {
     this.socket.send(JSON.stringify(message));
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+  }
+  
   componentDidMount() {
     this.socket = new WebSocket('ws://localhost:3001');
     console.log('Connected to server');
+    // this.scrollToBottom();
 
     this.socket.onmessage = (event) => {  
       const message = JSON.parse(event.data);
@@ -79,6 +84,10 @@ class App extends Component {
     }
   }
 
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -89,9 +98,13 @@ class App extends Component {
         <main className="row">
           <div id="messages" className="col-9">
             <MessageList messages={this.state.messages} />
+            <div ref={(el) => { this.messagesEnd = el; }}></div>
           </div>
+
           <div id="sidebar" className="col-3">
-            <SideBar userList={this.state.userList} typingNotification={this.state.typingNotification} />
+            <div className="scroll">
+              <SideBar userList={this.state.userList} typingNotification={this.state.typingNotification} />
+            </div>
           </div>
         </main>
         <ChatBar addNewMessage={this.addNewMessage} user={this.state.user} notifyTyping={this.notifyTyping} />
