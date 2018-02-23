@@ -120,7 +120,7 @@ wss.on('connection', (ws) => {
           }
           
           broadcastToOthers(ws, outgoingMsg);
-        }, 1000);      
+        }, 500);      
       };
         
       usersTypinglist = usersTypingList.filter(userTyping => userTyping.id === user.id);
