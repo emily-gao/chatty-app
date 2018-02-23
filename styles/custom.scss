@@ -2,10 +2,43 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.messages {
-  margin-top: 2em;
+main {
+  margin: 3.5em 0;
+  height: 38.5em;
+
+  #messages {
+    padding-top: 1em;
+  }
+  
+  #sidebar {
+    background-color: #f8f8f8;
+    border-left: black;
+    padding-top: 1em;
+  }
+  
 }
 
 img {
   max-width: 60%;
+}
+
+
+.message {
+  padding-left: 13px;
+}
+
+nav {
+
+  a {
+    padding-left: 13px;
+  }
+
+  span {
+    padding-right: 13px;
+  }
+
+}
+
+p {
+  margin-bottom: 0;
 }
