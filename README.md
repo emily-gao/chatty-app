@@ -7,6 +7,8 @@ Contains an input field to change your name and an input field to send a message
 The client-side app communicates with a server via WebSockets for multi-user real-time updates
 No persistent database is involved; the focus is on the client-side experience
 
+![gif to display features](http://recordit.co/nDhipoPpI5)
+
 ### Basic Features
 
 * When any connected user sends a chat message, all connected users receive and display the message
@@ -17,7 +19,7 @@ No persistent database is involved; the focus is on the client-side experience
 
 ### Extra Features
 
-* Links to an image will be auto-deleted and the image will be fetched from the link and displayed
+* Links to images will be auto-deleted and the images will be fetched from the link and displayed
 * Different users' names will each be coloured differently and the colouring is consistent between connected user instances
 * A list of active users with their usernames are displayed
 * When any connected user is typing, either to update their username or input a message, all other connected users are notified
