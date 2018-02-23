@@ -7,7 +7,7 @@ Contains an input field to change your name and an input field to send a message
 The client-side app communicates with a server via WebSockets for multi-user real-time updates
 No persistent database is involved; the focus is on the client-side experience
 
-![gif to display features](http://recordit.co/nDhipoPpI5)
+![video to display features](https://youtu.be/b04EFc31pZI)
 
 ### Basic Features
 
